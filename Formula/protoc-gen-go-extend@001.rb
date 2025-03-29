@@ -1,8 +1,8 @@
 class ProtocGenGoExtend &lt; Formula
   desc "Protoc plugin that generates extend standard enums and message code"
   homepage "https://github.com/goutls/protoc-gen-go-extend"
-  url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.10"
-  sha256 "b5091a354a85e9f1f6071b07810a297610a8ce72fc65ee6f8fbed2693cf4dc03"
+  url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.1"
+  sha256 "83ce672530c5fac35aa36cf05aab5113661eba349f59e36acc8a0a31acb2244c"
   license "Apache-2.0"
 
   livecheck do

@@ -1,8 +1,8 @@
-class ProtocGenGoExtend &lt; Formula
+class ProtocGenGoExtend{{.Prefix}} < Formula
   desc "Protoc plugin that generates extend standard enums and message code"
   homepage "https://github.com/goutls/protoc-gen-go-extend"
-  url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.10"
-  sha256 "b5091a354a85e9f1f6071b07810a297610a8ce72fc65ee6f8fbed2693cf4dc03"
+  url "{{.TarballUrl}}"
+  sha256 "{{.TarballUrlSHA256}}"
   license "Apache-2.0"
 
   livecheck do
@@ -20,7 +20,7 @@ class ProtocGenGoExtend &lt; Formula
   end
 
   test do
-    (testpath/"service.proto").write &lt;&lt;~PROTO
+    (testpath/"service.proto").write <<~PROTO
       syntax = "proto3";
 
       option go_package = ".;proto";
