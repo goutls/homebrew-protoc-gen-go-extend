@@ -172,18 +172,6 @@ func main() {
 			zap.Any("releases", releaseViews),
 		)
 
-		var latest *ReleaseShortView
-		for _, releaseView := range releaseViews {
-			if releaseView.IsLatest {
-				latest = releaseView
-			}
-
-		}
-
-		if latest == nil {
-			logger.Fatal("no latest release found")
-		}
-
 		releaseViewsUpdateSyncGroup := &sync.WaitGroup{}
 		releaseViewsUpdateSyncGroup.Add(len(releaseViews))
 		for _, view := range releaseViews {
@@ -258,19 +246,33 @@ func main() {
 				}
 
 				logger.Info("loaded view of release", zap.Any("view", view))
+				{
+					tagNameOnlyDigests := regExp.ReplaceAllString(view.TagName, "")
+					view.Prefix = "AT" + tagNameOnlyDigests
 
-				buf := bytes.NewBuffer(nil)
-				if err := tmpl.Execute(buf, view); err != nil {
-					logger.Fatal(
-						"Error executing template",
-						zap.Error(err),
-					)
+					buf := bytes.NewBuffer(nil)
+					if err := tmpl.Execute(buf, view); err != nil {
+						logger.Fatal(
+							"Error executing template",
+							zap.Error(err),
+						)
+					}
+
+					fileName := "./Formula/" + configFileName + "@" + tagNameOnlyDigests + ".rb"
+					WriteFile(logger, fileName, buf.Bytes())
 				}
 
-				fileName := "./Formula/" + configFileName + "@" + regExp.ReplaceAllString(view.TagName, "") + ".rb"
-				WriteFile(logger, fileName, buf.Bytes())
-
 				if view.IsLatest {
+					view.Prefix = ""
+
+					buf := bytes.NewBuffer(nil)
+					if err := tmpl.Execute(buf, view); err != nil {
+						logger.Fatal(
+							"Error executing template",
+							zap.Error(err),
+						)
+					}
+
 					fileName := "./Formula/" + configFileName + ".rb"
 					WriteFile(logger, fileName, buf.Bytes())
 				}
