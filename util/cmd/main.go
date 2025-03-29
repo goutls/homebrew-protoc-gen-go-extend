@@ -6,7 +6,6 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"io"
 	"net/http"
 	"os"
@@ -16,6 +15,7 @@ import (
 	"strings"
 	"sync"
 	"syscall"
+	"text/template"
 	"time"
 
 	"go.uber.org/zap"
@@ -75,7 +75,7 @@ func main() {
 		panic(err)
 	}
 
-	byteSlice, err := os.ReadFile("./config.yaml")
+	byteSlice, err := os.ReadFile("./util/config/config.yaml")
 	if err != nil {
 		logger.Fatal(
 			"Error reading config.json",

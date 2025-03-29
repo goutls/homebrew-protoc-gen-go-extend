@@ -1,3 +1,3 @@
 repositories:
   - repository: github.com/goutls/protoc-gen-go-extend
-    templateFileName: ./protoc-gen-go-extend.rb.tmpl
+    templateFileName: ./util/tmpl/protoc-gen-go-extend.rb.tmpl

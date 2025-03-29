@@ -1,4 +1,4 @@
-class ProtocGenGoExtend &lt; Formula
+class ProtocGenGoExtend < Formula
   desc "Protoc plugin that generates extend standard enums and message code"
   homepage "https://github.com/goutls/protoc-gen-go-extend"
   url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.10"
@@ -20,7 +20,7 @@ class ProtocGenGoExtend &lt; Formula
   end
 
   test do
-    (testpath/"service.proto").write &lt;&lt;~PROTO
+    (testpath/"service.proto").write <<~PROTO
       syntax = "proto3";
 
       option go_package = ".;proto";
