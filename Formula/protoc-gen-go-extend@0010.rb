@@ -10,14 +10,16 @@ class ProtocGenGoExtendAT0010 < Formula
 
   livecheck do
     url :stable
-    regex(%r{cmd/protoc-gen-go-extend/v?(\d+(?:\.\d+)+)}i)
+    regex(%r{protoc-gen-go-extend/v?(\d+(?:\.\d+)+)}i)
   end
 
   depends_on "go" => :build
   depends_on "protobuf"
 
   def install
-      system "go", "build", *std_go_args(ldflags: "-s -w", output: bin/"protoc-gen-go-extend"), "./protoc-gen-go-extend/"
+      cd "protoc-gen-go-extend" do
+        system "go", "build", *std_go_args(ldflags: "-s -w")
+      end
   end
 
   test do
