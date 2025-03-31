@@ -14,7 +14,7 @@ class ProtocGenGoExtendAT003 < Formula
   depends_on "protobuf"
 
   def install
-    cd "cmd" do
+    cd "protoc-gen-go-extend" do
       system "go", "build", *std_go_args(ldflags: "-s -w")
     end
   end
