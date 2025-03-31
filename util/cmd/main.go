@@ -42,6 +42,7 @@ type ReleaseShortView struct {
 	TarballUrl       string    `json:"tarballUrl"`
 	TarballUrlSHA256 string    `json:"tarballUrlSha256"`
 	Prefix           string    `json:"prefix"`
+	Revision         int       `json:"revision"`
 }
 
 type ReleaseView struct {
@@ -174,10 +175,11 @@ func main() {
 
 		releaseViewsUpdateSyncGroup := &sync.WaitGroup{}
 		releaseViewsUpdateSyncGroup.Add(len(releaseViews))
-		for _, view := range releaseViews {
+		for i, view := range releaseViews {
 			go func(
 				view *ReleaseShortView,
 				group *sync.WaitGroup,
+				index int,
 			) {
 				defer group.Done()
 
@@ -245,6 +247,8 @@ func main() {
 					)
 				}
 
+				view.Revision = index + 1
+
 				logger.Info("loaded view of release", zap.Any("view", view))
 				{
 					tagNameOnlyDigests := regExp.ReplaceAllString(view.TagName, "")
@@ -276,7 +280,7 @@ func main() {
 					fileName := "./Formula/" + configFileName + ".rb"
 					WriteFile(logger, fileName, buf.Bytes())
 				}
-			}(view, releaseViewsUpdateSyncGroup)
+			}(view, releaseViewsUpdateSyncGroup, i)
 		}
 		releaseViewsUpdateSyncGroup.Wait()
 	}

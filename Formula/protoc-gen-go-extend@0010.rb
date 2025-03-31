@@ -1,9 +1,12 @@
-class ProtocGenGoExtend < Formula
+class ProtocGenGoExtendAT0010 < Formula
   desc "Protoc plugin that generates extend standard enums and message code"
   homepage "https://github.com/goutls/protoc-gen-go-extend"
   url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.10"
   sha256 "b5091a354a85e9f1f6071b07810a297610a8ce72fc65ee6f8fbed2693cf4dc03"
   license "Apache-2.0"
+  revision 3
+
+  keg_only :versioned_formula
 
   livecheck do
     url :stable
@@ -14,9 +17,7 @@ class ProtocGenGoExtend < Formula
   depends_on "protobuf"
 
   def install
-    cd "protoc-gen-go-extend" do
       system "go", "build", *std_go_args(ldflags: "-s -w", output: bin/"protoc-gen-go-extend"), "./protoc-gen-go-extend/"
-    end
   end
 
   test do
