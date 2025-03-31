@@ -15,7 +15,7 @@ class ProtocGenGoExtendAT0010 < Formula
 
   def install
     cd "protoc-gen-go-extend" do
-      system "go", "build", *std_go_args(ldflags: "-s -w")
+      system "go", "build", *std_go_args(ldflags: "-s -w", output: bin/"protoc-gen-go-extend"), "./protoc-gen-go-extend/"
     end
   end
 
