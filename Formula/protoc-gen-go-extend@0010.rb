@@ -1,4 +1,4 @@
-class ProtocGenGoExtendAT0010 < Formula
+class ProtocGenGoExtend < Formula
   desc "Protoc plugin that generates extend standard enums and message code"
   homepage "https://github.com/goutls/protoc-gen-go-extend"
   url "https://api.github.com/repos/goutls/protoc-gen-go-extend/tarball/v0.0.10"
